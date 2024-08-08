@@ -28,4 +28,4 @@
 
    ```docker compose up -d```
 
-6. Запустити DAG
+6. Запустити DAG (localhost:8080)
