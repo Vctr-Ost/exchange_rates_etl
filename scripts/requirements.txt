@@ -1,0 +1,7 @@
+requests
+pandas
+google-cloud-storage
+python-dotenv
+pyarrow
+pytest
+requests-mock
