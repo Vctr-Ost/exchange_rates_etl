@@ -2,7 +2,7 @@
 
 1. Клонувати репо
 
-   ```git clone https://github.com/Vctr-Ost/skelar_test_task.git project```
+   ```git clone https://github.com/Vctr-Ost/skelar_test_task.git .```
 
 3. Для запуску проекту у папку "scripts" потрібно додати наступні обʼєкти:
 
