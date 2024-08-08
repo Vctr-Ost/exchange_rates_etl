@@ -24,7 +24,7 @@
    ```cd scripts && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt && pip install --upgrade pip && deactivate && cd ..```
 
 
-5. У папці project збілдити та підняти docker compose:
+5. У папці проекту потрібно підняти docker compose:
 
    ```docker compose up -d```
 
