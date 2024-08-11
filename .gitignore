@@ -5,4 +5,5 @@ logs/*
 scripts/keys/
 scripts/venv/
 scripts/.env
+scripts/logs.log
 .DS_Store
