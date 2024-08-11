@@ -84,5 +84,5 @@ def upload_gcs_file(blob: storage.Blob, df: pd.DataFrame, file_type: str) -> str
         logger.info('Blob uploaded on GCS')
         return 'SUCCESS'
     else:
-        logger.error(f"Unsupported file type: {file_type}")
+        logger.error(f"Unsupported file type for: {file_type}")
         raise ValueError(f"Unsupported file type: {file_type}")
