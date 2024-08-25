@@ -1,14 +1,29 @@
-import datetime
+from datetime import datetime, timedelta
 from airflow import DAG
-from airflow.operators.bash_operator import BashOperator
 from airflow.operators.dummy import DummyOperator
-from airflow.operators.python import PythonVirtualenvOperator
+from airflow.operators.python import PythonOperator
+import logging
+
+
+def load_data(**kwargs):
+    logging.info('Airflow - loading exchange rates function started')
+
+    from scripts.main import main
+    exec_date = kwargs['ds']
+    tomorow_date = datetime.strptime(exec_date, '%Y-%m-%d') + timedelta(days=1)
+
+    logging.info(f'Airflow - loading exchange rates on date {tomorow_date.strftime('%Y-%m-%d')}')
+
+    main(tomorow_date.strftime('%Y-%m-%d'))
+    
+    logging.info('Airflow - loading exchange rates function finished')
+    return 'End load_data fn'
 
 
 default_args={
     'owner':'airflow',
     'depends_on_past': True,
-    'start_date':datetime.datetime(2024, 7, 1),
+    'start_date':datetime(2024, 8, 20),
     'retries': 1,
 }
 
@@ -22,12 +37,14 @@ with DAG(
     
     start = DummyOperator(task_id='Start')
 
-    bash_script = BashOperator(
-        task_id='Bash_Script',
-        bash_command='cd /opt/airflow/scripts && source venv/bin/activate && python3 main.py {{ ds }} && deactivate && cd ..',
+    python_fn = PythonOperator(
+        task_id='python_fn',
+        python_callable=load_data,
+        provide_context=True,
     )
 
     end = DummyOperator(task_id='End')
 
 
-    start>>bash_script>>end
+    start>>python_fn>>end
+
