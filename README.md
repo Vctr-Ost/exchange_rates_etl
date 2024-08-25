@@ -10,22 +10,16 @@
 
    2.2. ".env" файл із наступними змінними:
 
-        - "APP_ID" - id застосунку на https://openexchangerates.org/account/app-ids
+        - "APP_ID" - id застосунку на openexchangerates.org
         
-        - BASE_URL - базовий url для API ( BASE_URL=https://openexchangerates.org/api/historical )
+        - BASE_URL - базовий url для API на openexchangerates.org
         
         - BUCKET_NAME - назва бакету GCS
         
         - BLOB_FOLDER - назва папки для блобів у бакеті
 
-
-4. Далі потрібно створити venv у проекті з джобою:
-
-   ```cd scripts && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt && pip install --upgrade pip && deactivate && cd ..```
-
-
-5. У папці проекту потрібно підняти docker compose:
+4. У папці проекту потрібно підняти docker compose:
 
    ```docker compose up -d```
 
-6. Запустити DAG (localhost:8080)
+5. Запустити DAG на localhost:8080
