@@ -17,6 +17,18 @@ logger = getLogger()
 
 
 def get_secret(service_key_path, secret_id, version_id="latest"):
+    """
+    Функція дістає сікрет (secret_id) із Google Secret Manager
+
+    
+    Args:
+        service_key_path (str): Шлях до service_key GCP
+        secret_id (str): Назва сікрета який потрібно дістати
+        version_id (str): Версія сікрета (базово - остання)
+    
+    Returns:
+        str: Сікрет декодований в UTF-8
+    """
     os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = service_key_path
 
     client = secretmanager.SecretManagerServiceClient()
@@ -25,27 +37,6 @@ def get_secret(service_key_path, secret_id, version_id="latest"):
     response = client.access_secret_version(name=name)
 
     return response.payload.data.decode('UTF-8')
-
-
-
-def load_environment() -> tuple:
-    """
-    Завантажує із .env файла наступні елементи: BUCKET_NAME, BLOB_FOLDER, APP_ID, BASE_URL
-
-    Returns:
-        tuple of elements: BUCKET_NAME, BLOB_FOLDER, APP_ID, BASE_URL
-    """
-
-    logger.info('Start loading env')
-    load_dotenv()
-
-    BUCKET_NAME = os.getenv('BUCKET_NAME')
-    BLOB_FOLDER = os.getenv('BLOB_FOLDER')
-    APP_ID = os.getenv('APP_ID')
-    BASE_URL = os.getenv('BASE_URL')
-
-    logger.info('Finish loading env')
-    return BUCKET_NAME, BLOB_FOLDER, APP_ID, BASE_URL
 
 
 def main(dt_str):
