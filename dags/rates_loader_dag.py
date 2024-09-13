@@ -17,13 +17,12 @@ def load_data(**kwargs):
     main(tomorow_date.strftime('%Y-%m-%d'))
     
     logging.info('Airflow - loading exchange rates function finished')
-    return 'End load_data fn'
 
 
 default_args={
     'owner':'airflow',
     'depends_on_past': True,
-    'start_date':datetime(2024, 8, 20),
+    'start_date':datetime(2024, 9, 7),
     'retries': 1,
 }
 
